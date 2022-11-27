@@ -1,0 +1,1 @@
+with(Data_analysis, table(Internet_use, Age_gr))
