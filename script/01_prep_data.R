@@ -12,6 +12,7 @@ Data_set = mutate(
                                       ifelse(Data_set$netusoft == 4, "Most days",
                                              "Every day")))))
 
+
 # Rename recode the var Age (agea)
 Data_set = mutate(
   Data_set, 
@@ -20,3 +21,5 @@ Data_set = mutate(
                          ifelse(Data_set$agea <=53, "38-53",
                                 ifelse(Data_set$agea <=72, "54-72",
                                        "over73")))))
+                                       
+Data_analysis <- select(Data_set, Internet_use, Age_gr)
