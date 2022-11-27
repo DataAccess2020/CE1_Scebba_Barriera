@@ -11,3 +11,11 @@ Data_set = mutate(
                                ifelse(Data_set$netusoft == 3, "A few times a week",
                                       ifelse(Data_set$netusoft == 4, "Most days",
                                              "Every day")))))
+#rename and recode the var Age (agea)
+Data_set = mutate(
+  Data_set, 
+  Age_gr = ifelse(Data_set$agea <= 21, "17-21",
+                  ifelse(Data_set$agea <= 37, "22-37",
+                         ifelse(Data_set$agea <=53, "38-53",
+                                ifelse(Data_set$agea <=72, "54-72",
+                                       "over73")))))
