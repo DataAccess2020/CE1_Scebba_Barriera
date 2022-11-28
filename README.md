@@ -2,8 +2,8 @@
 CE1_Scebba_Barriera
 
 NUMBER OF COMMITS
-Sara Alice Scebba: 7
-Gaia Barriera: 5
+Sara Alice Scebba: 9
+Gaia Barriera: 7
 
 NUMBER OF ISSUE OPENED: 2
 
