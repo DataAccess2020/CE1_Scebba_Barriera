@@ -1,0 +1,75 @@
+---
+title: "Internet use among generations"
+author: "Gaia Barriera and Sara Scebba"
+date: "2022-11-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## RESEARCH QUESTION & HYPOTHESIS
+
+The intention behind this research is to analyse the generational gap in the use of the internet. Starting from Madden, Lenhart, Duggan, Cortesi and Gasser studies (2013), that showed how young people tend to have more positive attitudes toward new and old technologies compared to the old generation, therefore we hypothesis that younger generation are more likely to use Internet than older ones. The use of Internet has increased in the past years, and it has become an important part of how we communicate and interact we each other, how we gather information about the society we live in (Anderberg et al., 2020). Although people of all ages use Internet, research shows that technology use varies by age (Kiser et al., 2015). A generational divide is identified between older and younger Internet users, where the older users are often found to lag behind, both in usage and access (Bae Brandtzæg et al., 2010). Younger generations have grown up with computers, therefore they are comfortable using them to the point that they have created a digital lifestyle. Due to their ever-present use of technology, they are dependent on communication technologies where they can access information and interact socially with others (Kiser et al., 2015). Since we are moving fast toward a more technological era, understanding the Internet divide is key not to leave part of our society behind.
+
+
+```{r, include=FALSE}
+library(rio)
+library(tidyverse)
+setwd("C:/Users/barri/OneDrive/Desktop/UNIMI/Magistrale/Data access and regulation")
+
+import("C:/Users/barri/OneDrive/Desktop/UNIMI/Magistrale/Data access and regulation/ESS9e03_1.dta")
+Data_set<- import("ESS9e03_1.dta")
+
+library(tidyverse)
+
+Data_set = mutate(
+  Data_set,
+  Internet_use = ifelse(Data_set$netusoft == 1, "Never",
+                        ifelse(Data_set$netusoft == 2, "Only occasionally",
+                               ifelse(Data_set$netusoft == 3, "A few times a week",
+                                      ifelse(Data_set$netusoft == 4, "Most days",
+                                             "Every day")))))
+
+Data_set = mutate(
+  Data_set, 
+  Age_gr = ifelse(Data_set$agea <= 21, "17-21",
+                  ifelse(Data_set$agea <= 37, "22-37",
+                         ifelse(Data_set$agea <=53, "38-53",
+                                ifelse(Data_set$agea <=72, "54-72",
+                                       "over73")))))
+                                       
+Data_analysis <- select(Data_set, Internet_use, Age_gr)
+
+
+```
+
+
+## STATISTICAL ANALYSIS
+
+The dataset that was used in this analysis is ESS9-2018, taken from the ESS Data portal. We tried to analyse the correlation between the two variables: netusoft, Internet use, how often (dependent variable); agea, age of respondents, calculated (independent variable). As displayed in the script, the variables were recoded and renamed. For example: - agea, has been renamed – Age_gr - and recoded by generations: - GENZ (2001-1997) - GENY (1996-1981) - GENX (1980-1965) - BOOMERS (1964-1946) - SG, Silent Generation (1945-before) - netusoft  simply renamed - Internet_use – and recoded by categories: -Never -Only occasionally -A few times a week -Most days -Every day
+
+```{r, message=FALSE, echo=FALSE}
+
+library(gmodels)
+CrossTable(Data_analysis$Internet_use, Data_analysis$Age_gr)
+
+```
+
+## RESULTS
+As we took two categorical variables, we analysed their association with a contingency table, and we run the Chi-square test. Looking at the table, we can see that the Chi square is high, so we can reject the null hypothesis and say that the two variables are statistically dependent.
+```{r}
+ggplot(Data_analysis,aes(factor(Internet_use),Age_gr))+
+  geom_violin()+
+  geom_point(shape=1, position="jitter")
+
+```
+
+## CONCLUSION
+
+As a consequence of the digital generational divide, "digital natives" are more likely to spend their time using internet.Especially by looking at the plot we can easily point out how new generations tend to use internet more and more compared to the older ones - which on average use it less. So, in conclusion, we can say that, from these data, an actual correlation between age and use of internet exists.
+
+
+
+
